@@ -1,0 +1,51 @@
+
+<style>
+
+    .accordion {
+        margin: 1em;
+        padding: 1em;
+        background-color: aliceblue;
+    }
+
+    .accordion__body {
+        overflow: hidden;
+        transition: height 1s;
+    }
+
+
+</style>
+
+<div class="js-accordion-group">
+
+    <button class="js-trigger">Show and hide the content</button>
+    <div class="accordion js-accordion is-closed">
+        <div class="accordion__body js-body">
+            The content
+        </div>
+    </div>
+
+    <button class="js-trigger">Show and hide the content</button>
+    <div class="accordion js-accordion is-closed">
+        <div class="accordion__body js-body">
+            The content
+        </div>
+    </div>
+
+    <button class="js-trigger">Show and hide the content</button>
+    <div class="accordion js-accordion is-closed">
+        <div class="accordion__body js-body">
+            The content
+        </div>
+    </div>
+</div>
+
+<script src="../build/build.js"></script>
+<script>
+
+    var AccordionGroup = require('accordion-group');
+
+    new AccordionGroup({
+        el: document.querySelector('.js-accordion-group')
+    });
+
+</script>
