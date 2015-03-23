@@ -57,6 +57,12 @@ AccordionGroup.prototype.open = function(index) {
     }
 
     self._accordions[index]
+      .once('open', function(){
+        self.triggerElements[index].classList.add('is-open');
+      })
+      .once('close', function() {
+        self.triggerElements[index].classList.remove('is-open');
+      })
       .once('opened', stopTransitioning)
       .once('closed', stopTransitioning)
       .toggle()
@@ -78,8 +84,10 @@ AccordionGroup.prototype.open = function(index) {
 
     //close the accordion
     self._accordions[i]
+      .once('close', function() {
+        self.triggerElements[i].classList.remove('is-open');
+      })
       .once('closed', function() {
-        console.log('Closed', i);
         close(++i);
       })
       .close()
