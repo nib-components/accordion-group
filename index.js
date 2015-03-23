@@ -43,8 +43,25 @@ function AccordionGroup(options) {
 AccordionGroup.prototype.open = function(index) {
   var self = this;
 
+  //don't open the accordion if another one is in transition
+  if (this._transitioning) {
+    return this;
+  } else {
+    this._transitioning = true;
+  }
+
   function open() {
-    self._accordions[index].toggle();
+
+    function stopTransitioning() {
+      self._transitioning = false;
+    }
+
+    self._accordions[index]
+      .once('opened', stopTransitioning)
+      .once('closed', stopTransitioning)
+      .toggle()
+    ;
+
   }
 
   function close(i) {
@@ -72,6 +89,7 @@ AccordionGroup.prototype.open = function(index) {
 
   close(0);
 
+  return this;
 };
 
 /**
