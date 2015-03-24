@@ -17,22 +17,25 @@
 
 <div class="js-accordion-group">
 
-    <button class="js-trigger">Show and hide the content</button>
+    <button class="js-outside-trigger">Show and hide the content</button>
     <div class="accordion js-accordion is-closed">
+        <button class="js-trigger">Accordion Trigger</button>
         <div class="accordion__body js-body">
             The content
         </div>
     </div>
 
-    <button class="js-trigger">Show and hide the content</button>
+    <button class="js-outside-trigger">Show and hide the content</button>
     <div class="accordion js-accordion is-closed">
+        <button class="js-trigger">Accordion Trigger</button>
         <div class="accordion__body js-body">
             The content
         </div>
     </div>
 
-    <button class="js-trigger">Show and hide the content</button>
+    <button class="js-outside-trigger">Show and hide the content</button>
     <div class="accordion js-accordion is-closed">
+        <button class="js-trigger">Accordion Trigger</button>
         <div class="accordion__body js-body">
             The content
         </div>
@@ -45,7 +48,8 @@
     var AccordionGroup = require('accordion-group');
 
     new AccordionGroup({
-        el: document.querySelector('.js-accordion-group')
+        el: document.querySelector('.js-accordion-group'),
+        triggerSelector: '.js-outside-trigger'
     });
 
 </script>

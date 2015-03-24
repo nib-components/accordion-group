@@ -31,85 +31,40 @@ function AccordionGroup(options) {
 
   this._accordions  = [];
   for (var i=0; i<this.accordionElements.length; ++i) {
-    this._accordions.push(new Accordion({el: this.accordionElements[i]}));
+
+    var accordion = new Accordion({el: this.accordionElements[i]});
+
+    accordion
+      .on('open', function() {
+        for (var i=0; i<self._accordions.length; ++i) {
+          if (this !== self._accordions[i]) {
+            self._accordions[i].close();
+          }
+        }
+      })
+      .on('opened', function() {
+        var index = self._accordions.indexOf(this);
+        self.triggerElements[index].classList.add('is-open');
+      })
+      .on('closed', function() {
+        var index = self._accordions.indexOf(this);
+        self.triggerElements[index].classList.remove('is-open');
+      })
+    ;
+
+    this._accordions.push(accordion);
   }
 
 }
-
-/**
- * Open an accordion, making sure all the other accordions are closed
- * @param {number} index The accordion index
- */
-AccordionGroup.prototype.open = function(index) {
-  var self = this;
-
-  //don't open the accordion if another one is in transition
-  if (this._transitioning) {
-    return this;
-  } else {
-    this._transitioning = true;
-  }
-
-  function open() {
-
-    function stopTransitioning() {
-      self._transitioning = false;
-    }
-
-    self._accordions[index]
-      .once('open', function(){
-        self.triggerElements[index].classList.add('is-open');
-      })
-      .once('close', function() {
-        self.triggerElements[index].classList.remove('is-open');
-      })
-      .once('opened', stopTransitioning)
-      .once('closed', stopTransitioning)
-      .toggle()
-    ;
-
-  }
-
-  function close(i) {
-
-    //check if we've closed all the accordions
-    if (i>=self._accordions.length) {
-      return open();
-    }
-
-    //ignore the triggered accordion
-    if (i === index) {
-      return close(++i);
-    }
-
-    //close the accordion
-    self._accordions[i]
-      .once('close', function() {
-        self.triggerElements[i].classList.remove('is-open');
-      })
-      .once('closed', function() {
-        close(++i);
-      })
-      .close()
-    ;
-
-  }
-
-  close(0);
-
-  return this;
-};
 
 /**
  * @private
  * @param   {Event} event
  */
 AccordionGroup.prototype.onTriggerClicked = function(event) {
-
   var triggerElement  = closest(event.target, this.triggerSelector, true, true);
   var triggerIndex    = Array.prototype.indexOf.call(this.triggerElements, triggerElement);
-
-  this.open(triggerIndex);
+  this._accordions[triggerIndex].toggle();
 };
 
 module.exports = AccordionGroup;
