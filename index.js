@@ -55,6 +55,13 @@ function AccordionGroup(options) {
     this._accordions.push(accordion);
   }
 
+  //check the accordion trigger and accordion-group triggers are not the same - otherwise they'll fight each other to open and close and it took ages to debug
+  for (var i=0; i<this.triggerElements.length; ++i) {
+    if (this.triggerElements[i] === this._accordions[i].trigger) {
+      throw new Error('The accordion and accordion group must not have the same trigger element.');
+    }
+  }
+
 }
 
 /**
