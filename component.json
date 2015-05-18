@@ -9,6 +9,7 @@
     "component/closest": "~0.1.4"
   },
   "development": {
-    "component/assert": "*"
+    "component/assert": "~0.5.0",
+    "jameslnewell/click": "~0.1.0"
   }
 }

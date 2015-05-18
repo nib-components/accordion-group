@@ -3,8 +3,6 @@ accordion-group
 
 A group of accordions where only one accordion can be open at any one time.
 
-Used in conjunction with [nib-components/accordion](https://github.com/nib-components/accordion) component.
-
     component install nib-components/accordion
 
 ## API
