@@ -65,7 +65,7 @@ describe('accordion-group', function() {
 
   describe('accordion#open', function() {
 
-    it('group trigger should have the is-open class', function(done) {
+    it('accordion-group trigger should have the is-open class', function(done) {
 
       var trigger   = group.triggers[1];
       var accordion = group.accordions[1];
@@ -85,6 +85,7 @@ describe('accordion-group', function() {
 
       var accordion1 = group.accordions[0];
       var accordion2 = group.accordions[1];
+      var accordion3 = group.accordions[2];
 
       accordion1
         .on('opened', function() {
@@ -93,6 +94,7 @@ describe('accordion-group', function() {
           accordion2
             .on('opened', function() {
               assert(!accordion1.isOpen);
+              assert(!accordion3.isOpen);
               done();
             })
             .open()
@@ -108,7 +110,7 @@ describe('accordion-group', function() {
 
   describe('accordion#close', function() {
 
-    it('group trigger should not have the is-open class', function(done) {
+    it('accordion-group trigger should not have the is-open class', function(done) {
 
       var trigger   = group.triggers[1];
       var accordion = group.accordions[1];
@@ -184,7 +186,7 @@ describe('accordion-group', function() {
 
     });
 
-    it('should close the other accordions', function(done) {
+    it('should close the accordion', function(done) {
 
       var trigger   = group.triggers[1];
       var accordion = group.accordions[1];
